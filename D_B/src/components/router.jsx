@@ -55,9 +55,8 @@ const Router = () => {
         <Route path="/materidashboard" element={<MateriDashboard />} />
         <Route path="/tembangjawadashboard" element={<TembangJawaDashboard />} />
         <Route path="/dongeng" element={<Dongeng />} />
-        <Route path="/dongeng/:slug" element={<SingleDongeng />} />
+        <Route path="/dongeng/:id" element={<SingleDongeng />} />
         <Route path="/materipembelajaran" element={<MateriPembelajaran1 />} />
-        <Route path="/materipembelajaran1" element={<MateriPembelajaran1 />} />
         <Route path="/materipembelajaran1/premium" element={<PremiumPlan />} />
         <Route path="/materipembelajaran2" element={<MateriPembelajaran2 />} />
         <Route path="/materipembelajaran3" element={<MateriPembelajaran3 />} />

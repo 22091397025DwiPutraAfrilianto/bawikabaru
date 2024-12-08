@@ -1,4 +1,3 @@
-import React from "react";
 import detailjawangoko from "../assets/bahasangoko.png";
 import pakaianadatjawabarat from "../assets/pakaianadatjawabarat.png";
 import tariangambir from "../assets/tariangambirjawatengah.png";
