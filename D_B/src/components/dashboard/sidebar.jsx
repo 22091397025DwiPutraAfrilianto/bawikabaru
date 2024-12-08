@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FiX,
   FiUser,
@@ -10,13 +9,19 @@ import {
   FiCalendar,
   FiCreditCard,
 } from "react-icons/fi";
+import { useAuth } from "../../context/authContext";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  }
   return (
     <div
-      className={`fixed z-20 top-0 left-0 h-full bg-white shadow-lg transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
+      className={`fixed z-20 top-0 left-0 h-full bg-white shadow-lg transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       style={{ width: "250px" }}
     >
       <div className="flex justify-between items-center px-4 py-3 bg-gray-200">
@@ -38,12 +43,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         >
           <FiLogIn className="w-5 h-5 mr-3" /> Login
         </a>
-        <a
-          href="/logout"
+        <Link
+          onClick={handleLogout}
+          to="/"
           className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
         >
           <FiLogOut className="w-5 h-5 mr-3" /> Logout
-        </a>
+        </Link>
         <a
           href="/materidashboard"
           className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"

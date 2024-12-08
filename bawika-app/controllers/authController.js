@@ -5,13 +5,14 @@ const { User } = require("../associations");
 require("dotenv").config();
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
-
+  const { first_name, last_name, email, password } = req.body;
   try {
+    // Perbaiki penggabungan nama dengan spasi antara first_name dan last_name
+    const fullname = `${first_name} ${last_name}`;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-      name,
+      name: fullname,
       email,
       password: hashedPassword,
       role: "user",
@@ -43,6 +44,7 @@ const register = async (req, res) => {
       });
   }
 };
+
 
 const login = async (req, res) => {
   const { email, password } = req.body;

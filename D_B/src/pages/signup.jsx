@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo2 from "../assets/logo.png";
 import charat2 from "../assets/chara.png";
+import { useAuth } from "../context/authContext";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -14,18 +15,19 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
+  const { login: contextLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     const { firstName, lastName, email, password, confirmPassword } = formData;
 
-    // Validasi sederhana
+    // Validasi input
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       toast.error("Semua kolom wajib diisi!");
       return;
@@ -36,9 +38,38 @@ const SignUp = () => {
       return;
     }
 
-    // Jika validasi berhasil
-    toast.success("Pendaftaran berhasil!");
-    setTimeout(() => navigate("/login"), 2000); // Redirect ke halaman login setelah 2 detik
+    try {
+      // Kirim data formulir ke server
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success(result.message || "Pendaftaran berhasil!");
+
+        // Login user dengan token dari server jika berhasil
+        contextLogin(result.token, result.user.role, result.user.name);
+
+        // Navigasi ke halaman /home
+        setTimeout(() => navigate("/home"), 1000);
+      } else {
+        toast.error(result.message || "Terjadi kesalahan saat mendaftar.");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      toast.error("Terjadi kesalahan saat menghubungi server.");
+    }
   };
 
   return (
@@ -54,9 +85,7 @@ const SignUp = () => {
           {/* Form Sign Up */}
           <form onSubmit={handleSignUp}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Nama Depan
-              </label>
+              <label className="block text-gray-700 font-medium mb-2">Nama Depan</label>
               <input
                 type="text"
                 name="firstName"
@@ -67,9 +96,7 @@ const SignUp = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Nama Belakang
-              </label>
+              <label className="block text-gray-700 font-medium mb-2">Nama Belakang</label>
               <input
                 type="text"
                 name="lastName"
@@ -80,9 +107,7 @@ const SignUp = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Email
-              </label>
+              <label className="block text-gray-700 font-medium mb-2">Email</label>
               <input
                 type="email"
                 name="email"
@@ -93,9 +118,7 @@ const SignUp = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Password
-              </label>
+              <label className="block text-gray-700 font-medium mb-2">Password</label>
               <input
                 type="password"
                 name="password"
@@ -106,9 +129,7 @@ const SignUp = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Konfirmasi Password
-              </label>
+              <label className="block text-gray-700 font-medium mb-2">Konfirmasi Password</label>
               <input
                 type="password"
                 name="confirmPassword"
@@ -129,9 +150,7 @@ const SignUp = () => {
           <div className="text-center mt-4">
             <p className="text-sm">
               Sudah punya akun?{" "}
-              <Link to="/" className="text-yellow-500 hover:underline">
-                Login
-              </Link>
+              <Link to="/" className="text-yellow-500 hover:underline">Login</Link>
             </p>
           </div>
         </div>
@@ -139,20 +158,10 @@ const SignUp = () => {
 
       {/* Bagian Kanan */}
       <div className="flex-1 flex items-center justify-center p-5 bg-[#fee799] text-center">
-        <div className="text-center ">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Sugeng Rawuh!
-          </h1>
-          <p className="text-gray-700 mb-4">
-            Mari jelajahi serunya belajar bahasa dan budaya Jawa lewat cerita,
-            kuis, dan dongeng menarik. Daftar sekarang dan lestarikan warisan
-            bersama!
-          </p>
-          <img
-            src={charat2}
-            alt="Bawika Character"
-            className="mt-19 w-80 h-75  mx-40"
-          />
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Sugeng Rawuh!</h1>
+          <p className="text-gray-700 mb-4">Daftar sekarang dan jelajahi pengalaman belajar budaya Jawa bersama kami!</p>
+          <img src={charat2} alt="Bawika Character" className="mt-19 w-80 h-75 mx-auto" />
         </div>
       </div>
 

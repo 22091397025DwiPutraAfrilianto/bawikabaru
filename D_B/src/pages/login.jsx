@@ -1,33 +1,53 @@
-import React, { useState } from "react";
+/* eslint-disable */
+
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../assets/logo.png";
 import charat from "../assets/chara2.png";
+import { useAuth } from "../context/authContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { login: contextLogin } = useAuth();
   const navigate = useNavigate();
 
-  // Dummy data untuk akun terdaftar
-  const registeredAccounts = [
-    { email: "shilamumtaz@gmail.com", password: "123456" },
-  ];
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Cek apakah akun terdaftar
-    const account = registeredAccounts.find(
-      (acc) => acc.email === email && acc.password === password
-    );
+    // Validasi input
+    if (!email || !password) {
+      toast.error("Email dan password harus diisi!");
+      return;
+    }
 
-    if (account) {
-      toast.success("Login berhasil!");
-      navigate("/"); // Redirect ke halaman home
-    } else {
-      toast.error("Akun belum terdaftar. Silakan buat akun terlebih dahulu.");
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Login berhasil! Selamat datang.");
+        contextLogin(data.token, data.user.role, data.user.name);
+
+        // Navigasi sesuai role
+        navigate(data.user.role === 'admin' ? '/dashboard' : '/home');
+      } else {
+        toast.error(data.error || "Login gagal. Periksa email dan password Anda.");
+      }
+    } catch (error) {
+      toast.error("Gagal menghubungi server. Silakan coba lagi nanti.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -36,31 +56,25 @@ const Login = () => {
       {/* Bagian Kiri */}
       <div className="flex-1 flex items-center justify-center p-10 bg-[#fee799]">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4 ">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">
             Halo, Kembali lagi di Bawika.
           </h1>
-          <img
-            src={charat}
-            alt="Bawika Character"
-            className="mt-10 mx-10 w-60 h-50 "
-          />
+          <img src={charat} alt="Bawika Character" className="mt-10 mx-10 w-60 h-50" />
         </div>
       </div>
 
       {/* Bagian Kanan */}
       <div className="flex-1 flex md:flex-row items-center justify-center p-10">
-        <div className="bg-white rounded-lg  shadow-lg p-8 w-full max-w-md">
-          <div className="text-center mb-6 ">
+        <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+          <div className="text-center mb-6">
             <img src={logo} alt="Bawika Logo" className="mx-auto mb-2 w-20" />
             <h2 className="text-2xl font-bold text-gray-800">Login</h2>
           </div>
 
           {/* Form Login */}
           <form onSubmit={handleLogin}>
-            <div className="mb-4 ">
-              <label className="block text-gray-700 font-medium mb-2">
-                Email
-              </label>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-2">Email</label>
               <input
                 type="email"
                 placeholder="Masukkan Email"
@@ -70,9 +84,7 @@ const Login = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Password
-              </label>
+              <label className="block text-gray-700 font-medium mb-2">Password</label>
               <input
                 type="password"
                 placeholder="Masukkan Password"
@@ -91,15 +103,17 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-yellow-500 text-white py-3 rounded font-bold hover:bg-yellow-600"
+              className={`w-full py-3 rounded font-bold text-white ${isLoading ? 'bg-yellow-400' : 'bg-yellow-500 hover:bg-yellow-600'
+                }`}
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? 'Loading...' : 'Login'}
             </button>
           </form>
 
           <div className="text-center mt-4">
             <p className="text-sm">
-              Belum punya akun?{" "}
+              Belum punya akun?{' '}
               <Link to="/signup" className="text-yellow-500 hover:underline">
                 Sign Up
               </Link>

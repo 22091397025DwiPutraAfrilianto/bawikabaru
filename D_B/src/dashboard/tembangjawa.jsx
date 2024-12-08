@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Table from "../components/dashboard/table"
 import Modal from "../components/dashboard/modal";
 import DeleteConfirmation from "../components/dashboard/deleteconfirmasi";
-impor
+
 
 function TembangJawaDashboard() {
   const [data, setData] = useState([]);

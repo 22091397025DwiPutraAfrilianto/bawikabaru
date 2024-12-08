@@ -8,14 +8,14 @@ import MateriDashboard from "../dashboard/materipembelajaran";
 import TembangJawaDashboard from "../dashboard/tembangjawa";
 import Dongeng from "../pages/dongeng";
 import SingleDongeng from "../pages/singleDongeng";
-import MateriPembelajaran1 from "../pages/materipembelajaran1"; 
-import MateriPembelajaran2 from "../pages/materipembelajaran2"; 
-import MateriPembelajaran3 from "../pages/materipembelajaran3"; 
-import MateriPembelajaran4 from "../pages/materipembelajaran4"; 
-import MateriPembelajaran5 from "../pages/materipembelajaran5"; 
+import MateriPembelajaran1 from "../pages/materipembelajaran1";
+import MateriPembelajaran2 from "../pages/materipembelajaran2";
+import MateriPembelajaran3 from "../pages/materipembelajaran3";
+import MateriPembelajaran4 from "../pages/materipembelajaran4";
+import MateriPembelajaran5 from "../pages/materipembelajaran5";
 import DetailUpacaraMantenan from "../pages/detailupacaramantenan";
-import DetailSelametan from "../pages/detailslametan"; 
-import DetailSekaten from "../pages/detailsekaten"; 
+import DetailSelametan from "../pages/detailslametan";
+import DetailSekaten from "../pages/detailsekaten";
 import DetailRuwetan from "../pages/detailruwatan";
 import DetailPakaianPria from "../pages/detailpakaianpria";
 import DetailPakaianWanitaa from "../pages/detailpakaianwanita";
@@ -37,6 +37,7 @@ import Quiz from "../pages/detailkuis";
 import PaymentProcess from "../pages/paymentprocess";
 import KuisNavbar from "../pages/kuisnavbar";
 import PembelajaranNavbar from "../pages/pembelajaran";
+import Profile from "../pages/profile";
 
 
 
@@ -44,9 +45,10 @@ const Router = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login/forgotpassword" element={<ForgotPassword />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />

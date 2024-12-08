@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
@@ -58,7 +58,7 @@ const ForgotPassword = () => {
             type="submit"
             className="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600"
           >
-            Kirim 
+            Kirim
           </button>
         </form>
       </div>

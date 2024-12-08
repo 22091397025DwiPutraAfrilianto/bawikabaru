@@ -3,38 +3,44 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // Tambahkan logika untuk membuat tabel
-    await queryInterface.createTable("Users", {
+    await queryInterface.createTable("Pebelajarans", {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,
       },
-      role: {
-        type: Sequelize.ENUM("admin", "user"),
-        allowNull: false,
-        defaultValue: "user",
-      },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      alamat: {
+      title: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      no_handphone: {
+      description: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      email: {
+      image_path: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+        allowNull: true,
       },
-      password: {
-        type: Sequelize.STRING,
+      category_id: {
+        type: Sequelize.INTEGER, // Ubah menjadi INTEGER
         allowNull: false,
+        references: {
+          model: 'Categories', // Pastikan tabel Categories sudah ada
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      createdBy: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users', // Pastikan tabel Users sudah ada
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -46,13 +52,12 @@ module.exports = {
       },
       deletedAt: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true, // Gunakan NULLABLE untuk mendukung soft delete
       },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Tambahkan logika untuk menghapus tabel
-    await queryInterface.dropTable("Users");
+    await queryInterface.dropTable("Pebelajarans");
   },
 };
