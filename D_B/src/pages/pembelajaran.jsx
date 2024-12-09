@@ -1,5 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import HomePageCard from "../components/homePageCard";
 import dongeng from "../assets/dongeng.png";
@@ -29,7 +27,7 @@ const PembelajaranNavbar = () => {
                 "Belajar budaya dan bahasa Jawa, seru, penuh makna, dan melestarikan warisan leluhur."
               }
               src={pembelajaran}
-              to={"/materipembelajaran"}
+              to={"/pembelajaran/category/1"}
             />
             <HomePageCard
               name={"Tembang Jawa"}

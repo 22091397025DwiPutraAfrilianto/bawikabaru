@@ -1,9 +1,4 @@
 
-import React from "react";
-import { Link } from "react-router-dom";
-
-
-
 const Card = ({ title, description, imgSrc, isLocked }) => {
   return (
     <div className="relative bg-[#fee799] rounded-lg shadow-md p-4 w-64">

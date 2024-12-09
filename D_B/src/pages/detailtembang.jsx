@@ -3,7 +3,7 @@ import Navbar from "../components/navbar";
 import musicService from "../service/musicService";
 import { useParams } from "react-router-dom";
 
-const TembangPlayer = () => {
+const DetailTembang = () => {
   const { id } = useParams(); // ID dari URL
   const [musicData, setMusicData] = useState(null); // Data lagu
   const [isLoading, setIsLoading] = useState(true); // Untuk kondisi loading
@@ -110,4 +110,4 @@ const TembangPlayer = () => {
   );
 };
 
-export default TembangPlayer;
+export default DetailTembang;

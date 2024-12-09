@@ -24,6 +24,10 @@ const Pembelajaran = sequelize.define(
             type: DataTypes.STRING,
             allowNull: true,
         },
+        pdf_link: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         category_id: {
             type: DataTypes.STRING,
             allowNull: false,

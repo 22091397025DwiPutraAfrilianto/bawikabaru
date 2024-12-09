@@ -38,6 +38,8 @@ import PaymentProcess from "../pages/paymentprocess";
 import KuisNavbar from "../pages/kuisnavbar";
 import PembelajaranNavbar from "../pages/pembelajaran";
 import Profile from "../pages/profile";
+import DetailPembelajaran from "../pages/detailpembelajaran";
+import DetailTembang from "../pages/detailtembang";
 
 
 
@@ -57,6 +59,8 @@ const Router = () => {
         <Route path="/dongeng" element={<Dongeng />} />
         <Route path="/dongeng/:id" element={<SingleDongeng />} />
         <Route path="/materipembelajaran" element={<MateriPembelajaran1 />} />
+        <Route path="/pembelajaran/category/:id" element={<MateriPembelajaran1 />} />
+        <Route path="/pembelajaran/:id" element={<DetailPembelajaran />} />
         <Route path="/materipembelajaran1/premium" element={<PremiumPlan />} />
         <Route path="/materipembelajaran2" element={<MateriPembelajaran2 />} />
         <Route path="/materipembelajaran3" element={<MateriPembelajaran3 />} />
@@ -79,6 +83,7 @@ const Router = () => {
         <Route path="/payment" element={<PaymentForm />} />
         <Route path="/success" element={<PaymentProcess />} />
         <Route path="/tembangjawa" element={<TembangJawa />} />
+        <Route path="/tembangjawa/:id" element={<DetailTembang />} />
         <Route path="/tembang/1" element={<TembangPlayer />} />
         <Route path="/tembang/2" element={<TembangPlayer2 />} />
         <Route path="/tembang/3" element={<TembangPlayer3 />} />

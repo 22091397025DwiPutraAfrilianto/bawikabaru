@@ -1,48 +1,33 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/navbar";
-import upacaramantenan from "../assets/mantenan.png";
-import ruwatan from "../assets/ruwatan.png";
-import selametan from "../assets/selametan.png";
-import sekaten from "../assets/sekaten.png";
 import MenuPembelajaran from "../components/Navbar/MenuPembelajaran";
-// Data Materi
-const materiData = [
-  {
-    id: 1,
-    title: "Upacara Mantenan",
-    description:
-      "Prosesi pernikahan adat Jawa yang penuh dengan simbol dan makna filosofis. Upacara ini terdiri dari beberapa tahapan, mulai dari lamaran.",
-    image: upacaramantenan,
-    navigateTo: "/upacaramantenan",
-  },
-  {
-    id: 2,
-    title: "Ruwatan",
-    description:
-      "Upacara adat Jawa yang bertujuan untuk membersihkan atau membebaskan seseorang dari nasib buruk atau kesialan, yang dipercaya masyarakat.",
-    image: ruwatan,
-    navigateTo: "/ruwetan",
-  },
-  {
-    id: 3,
-    title: "Selametan",
-    description:
-      "Upacara adat Jawa yang dilakukan untuk mengungkapkan rasa syukur, memohon keselamatan, atau meminta berkah kepada Tuhan.",
-    image: selametan,
-    navigateTo: "/slametan",
-  },
-  {
-    id: 4,
-    title: "Sekaten",
-    description:
-      "Upacara tradisional Jawa yang diselenggarakan untuk memperingati kelahiran Nabi Muhammad SAW. Upacara ini berlangsung selama sepekan.",
-    image: sekaten,
-    navigateTo: "/sekaten",
-  },
-];
+import pembelajaranService from "../service/pembelajaranService";
+import { useEffect, useState } from "react";
 
 const MateriPembelajaran1 = () => {
+  const { id } = useParams();
+  const [materiData, setMateriData] = useState([]); // Ubah default state menjadi array kosong untuk menghindari error saat mapping
+  const [isLoading, setIsLoading] = useState(true); // Untuk menangani kondisi loading
   const navigate = useNavigate();
+
+  // Ambil data dari API
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await pembelajaranService.getPembelajaranCategoryById(id);
+        // Validasi data jika response valid
+        if (response && Array.isArray(response)) {
+          setMateriData(response);
+        }
+      } catch (err) {
+        console.error("Gagal mengambil materi pembelajaran:", err.message);
+      } finally {
+        setIsLoading(false); // Menghentikan loading setelah permintaan selesai
+      }
+    };
+
+    fetchVideos();
+  }, [id]);
 
   return (
     <>
@@ -55,25 +40,31 @@ const MateriPembelajaran1 = () => {
           <MenuPembelajaran />
 
           {/* Materi Cards */}
-          <div className="flex flex-wrap justify-center gap-6">
-            {materiData.map((materi) => (
-              <div
-                key={materi.id}
-                className="w-72 bg-[#fff5da] rounded-lg shadow-md hover:scale-105 transition transform cursor-pointer"
-                onClick={() => navigate(materi.navigateTo)}
-              >
-                <img
-                  src={materi.image}
-                  alt={materi.title}
-                  className="w-full h-44 object-cover"
-                />
-                <p className="text-lg font-bold text-[#333] p-4">{materi.title}</p>
-                <p className="text-justify text-sm text-[#555] px-4 pb-4">
-                  {materi.description}
-                </p>
-              </div>
-            ))}
-          </div>
+          {isLoading ? (
+            <p className="text-[#555] text-lg">Memuat materi pembelajaran...</p>
+          ) : materiData.length > 0 ? (
+            <div className="flex flex-wrap justify-center gap-6">
+              {materiData.map((materi) => (
+                <div
+                  key={materi.id} // Gunakan ID sebagai key unik
+                  className="w-72 bg-[#fff5da] rounded-lg shadow-md hover:scale-105 transition transform cursor-pointer"
+                  onClick={() => navigate(`/pembelajaran/${materi.id}`)} // Navigasi berdasarkan ID
+                >
+                  <img
+                    src={materi.imagePath ? `/image/pembelajaran/${materi.imagePath}` : `/images/pembelajaran/mantenan.png`} // Gunakan method untuk mendapatkan URL gambar
+                    alt={materi.title}
+                    className="w-full h-44 object-cover"
+                  />
+                  <p className="text-lg font-bold text-[#333] p-4">{materi.title}</p>
+                  <p className="text-justify text-sm text-[#555] px-4 pb-4">
+                    {materi.getDescriptionPreview()} {/* Gunakan metode untuk mempersingkat deskripsi */}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[#555] text-lg">Belum ada materi untuk kategori ini</p>
+          )}
         </main>
       </div>
     </>

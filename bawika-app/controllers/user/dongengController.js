@@ -6,7 +6,7 @@ const fs = require('fs');
 // Tentukan path folder tujuan untuk upload video
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const dir = path.join(__dirname, '../../../public/images/trainer');
+        const dir = path.join(__dirname, '../../../D_B/public/image/dongeng');
 
         // Periksa apakah folder sudah ada, jika belum buat folder
         if (!fs.existsSync(dir)) {
@@ -129,6 +129,7 @@ const getDongengById = async (req, res) => {
         res.status(500).json({ message: 'Failed to retrieve dongeng', error: error.message });
     }
 };
+
 
 const updateDongeng = async (req, res) => {
     try {

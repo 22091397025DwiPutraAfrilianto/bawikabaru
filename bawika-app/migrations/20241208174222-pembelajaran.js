@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // Tambahkan logika untuk membuat tabel
-    await queryInterface.createTable("Pebelajarans", {
+    await queryInterface.createTable("Pembelajarans", {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -19,6 +19,10 @@ module.exports = {
         allowNull: true,
       },
       image_path: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      pdf_link: {
         type: Sequelize.STRING,
         allowNull: true,
       },
@@ -58,6 +62,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Pebelajarans");
+    await queryInterface.dropTable("Pembelajarans");
   },
 };

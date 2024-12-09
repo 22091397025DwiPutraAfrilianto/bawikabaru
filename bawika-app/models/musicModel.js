@@ -1,9 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-const User = require("./userModel");
 
-const Category = sequelize.define(
-    "categories",
+const Music = sequelize.define(
+    "Musics",
     {
         id: {
             allowNull: false,
@@ -11,17 +10,31 @@ const Category = sequelize.define(
             primaryKey: true,
             type: DataTypes.INTEGER,
         },
-        name: {
+        title: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false,
-            unique: true,  // Menambahkan aturan unik pada kolom name
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
+        pencipta: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        music_path: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        image_path: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         createdBy: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: User,  // Merujuk ke tabel Users di database
+                model: 'Users',  // Merujuk ke tabel Users di database
                 key: 'id',
             },
             onUpdate: 'CASCADE',
@@ -35,4 +48,4 @@ const Category = sequelize.define(
     }
 );
 
-module.exports = Category;
+module.exports = Music;
