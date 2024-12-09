@@ -1,5 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import KuisCard from "../components/kuisCard";
 import ayoSinau from "../assets/ayo_sinau.png";
@@ -23,8 +21,8 @@ const KuisNavbar = () => {
             <KuisCard
               name={"Kuis Aksara Jawa"}
               src={aksara}
-              to={"/kuisaksarajawa/premium"}
-              lock={true}
+              to={"/kuis1"}
+              lock={false}
             />
             <KuisCard
               name={"Kuis Tarian Daerah"}
