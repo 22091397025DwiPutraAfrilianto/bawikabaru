@@ -1,7 +1,14 @@
 import { FaLock } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
-const KuisCard = ({ name, src, to, lock }) => {
+const KuisCard = ({ name, src, to, lock: initialLock }) => {
+  const { isAuth } = useAuth();
+  console.log(isAuth)
+
+  // Tentukan nilai lock berdasarkan status autentikasi
+  const lock = isAuth ? false : initialLock;
+
   return (
     <div className="relative z-0 w-full p-8 bg-white border-2 border-gray-300 shadow-xl rounded-2xl">
       {lock ? (
@@ -21,12 +28,14 @@ const KuisCard = ({ name, src, to, lock }) => {
           />
         </div>
         <p className="text-4xl font-semibold">{name}</p>
-        <Link
-          className="absolute bottom-0 text-2xl font-semibold text-blue-700/70"
-          to={to}
-        >
-          Mulai Kuis
-        </Link>
+        {!lock && (
+          <Link
+            className="absolute bottom-0 text-2xl font-semibold text-blue-700/70"
+            to={to}
+          >
+            Mulai Kuis
+          </Link>
+        )}
       </div>
     </div>
   );

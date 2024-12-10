@@ -46,7 +46,7 @@ const Rekomendasi = () => {
   return (
     <>
       <div className="mt-16">
-        <h3 className="text-3xl font-semibold">Rekomendasi</h3>
+        <h3 className="text-3xl font-semibold text-center">Rekomendasi</h3>
         <div className="grid grid-cols-3 mt-8">
           {dongengData.length > 0 ? (
             dongengData.slice(0, 3).map((item, index) => (

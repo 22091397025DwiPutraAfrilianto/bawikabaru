@@ -18,6 +18,7 @@ const MateriPembelajaran1 = () => {
         // Validasi data jika response valid
         if (response && Array.isArray(response)) {
           setMateriData(response);
+          console.log(response)
         }
       } catch (err) {
         console.error("Gagal mengambil materi pembelajaran:", err.message);
@@ -32,7 +33,7 @@ const MateriPembelajaran1 = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-[#fdfbf8] min-h-screen">
+      <div className="bg-gray-100 min-h-screen">
         <main className="text-center p-6">
           <h1 className="text-2xl font-bold text-[#333] mb-6">Materi Pembelajaran</h1>
 
@@ -51,7 +52,7 @@ const MateriPembelajaran1 = () => {
                   onClick={() => navigate(`/pembelajaran/${materi.id}`)} // Navigasi berdasarkan ID
                 >
                   <img
-                    src={materi.imagePath ? `/image/pembelajaran/${materi.imagePath}` : `/images/pembelajaran/mantenan.png`} // Gunakan method untuk mendapatkan URL gambar
+                    src={materi.imagePath ? `${materi.imagePath}` : `/images/pembelajaran/mantenan.png`} // Gunakan method untuk mendapatkan URL gambar
                     alt={materi.title}
                     className="w-full h-44 object-cover"
                   />

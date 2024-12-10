@@ -19,6 +19,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      image_path: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       alamat: {
         type: Sequelize.STRING,
         allowNull: true,

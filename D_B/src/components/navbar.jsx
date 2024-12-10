@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserAlt, FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import useNavbar from "../hooks/useNavbar";
 import { useAuth } from "../context/authContext";
+import userService from "../service/userService";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useNavbar();
-  const { isAuth, userName } = useAuth(); // Ambil status autentikasi dari context
+  const { isAuth } = useAuth();
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    if (!isAuth) return;
+    const fetchUserProfile = async () => {
+      try {
+        const data = await userService.getProfile();
+        setUserData(data);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -71,16 +88,26 @@ const Navbar = () => {
         {/* User and Sidebar Toggle */}
         <div className="flex items-center gap-4">
           {/* Jika pengguna belum login, tampilkan tombol Login */}
-          {!isAuth && (
+          {!isAuth && (<>
             <Link className="font-semibold hidden md:block" to={"/login"}>
 
               Login
             </Link>
+            <Link className="font-semibold hidden md:block" to={"/signup"}>
+
+              Daftar
+            </Link>
+          </>
           )}
-          <span className="text-lg font-semibold">{userName}</span>
-          <Link className="hidden md:block" to={"/profile"}>
-            <FaUserAlt className="text-current size-5" />
-          </Link>
+          {isAuth && (<>
+            <span className="text-lg font-bold font-poppins">Hi, {userData?.name}</span>
+            <Link className="hidden md:block" to={"/profile"}>
+
+              <FaUserAlt className="text-current size-5" />
+            </Link>
+          </>
+          )}
+
           <button
             className="block md:hidden text-xl focus:outline-none"
             onClick={toggleSidebar}

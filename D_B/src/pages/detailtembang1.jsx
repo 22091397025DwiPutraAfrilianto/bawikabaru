@@ -35,6 +35,10 @@ const TembangPlayer = () => {
     setIsPlaying(!isPlaying);
   };
 
+  const handleSkip = (musikId) => {
+
+  }
+
   if (isLoading) {
     return (
       <>
@@ -101,6 +105,12 @@ const TembangPlayer = () => {
                 onClick={playPauseHandler}
               >
                 {isPlaying ? "⏸" : "▶"}
+              </button>
+              <button
+                className="w-12 h-12 bg-white bg-[#fee799] text-white rounded-full shadow-md flex items-center justify-center"
+                onClick={handleSkip(musicData.id + 1)}
+              >
+                ⏭
               </button>
             </div>
           </div>

@@ -115,7 +115,7 @@ const Login = () => {
             <p className="text-sm">
               Belum punya akun?{' '}
               <Link to="/signup" className="text-yellow-500 hover:underline">
-                Sign Up
+                Daftar
               </Link>
             </p>
           </div>

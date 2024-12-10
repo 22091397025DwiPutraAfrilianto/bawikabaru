@@ -74,11 +74,97 @@ const getPembelajaranCategoryById = async (categoryId) => {
         );
     }
 };
+const createMateri = async (formData) => {
+    try {
+        const response = await axios.post(
+            `${apiUrl}/pembelajarans`, formData,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        // Validasi data dari server
+        if (response?.data?.pembelajaran) {
+            // Map response data ke dalam instance Pembelajaran
+            return new Pembelajaran(response.data.pembelajaran)
+        }
+
+        // Jika tidak ada data yang valid
+        throw new Error("Data pembelajaran tidak ditemukan.");
+    } catch (error) {
+        console.error(
+            "Error fetching Pembelajaran by ID:",
+            error.message || error
+        );
+
+        // Mengembalikan error dengan pesan yang dapat digunakan di UI
+        throw new Error(
+            error.response?.data?.message ||
+            "Terjadi kesalahan saat mengambil data pembelajaran."
+        );
+    }
+};
+const updateMateri = async (materiId, formData) => {
+    try {
+        const response = await axios.put(
+            `${apiUrl}/pembelajarans/${materiId}`, formData,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        // Validasi data dari server
+        if (response?.data?.pembelajaran) {
+            // Map response data ke dalam instance Pembelajaran
+            return new Pembelajaran(response.data.pembelajaran)
+        }
+
+        // Jika tidak ada data yang valid
+        throw new Error("Data pembelajaran tidak ditemukan.");
+    } catch (error) {
+        console.error(
+            "Error fetching Pembelajaran by ID:",
+            error.message || error
+        );
+
+        // Mengembalikan error dengan pesan yang dapat digunakan di UI
+        throw new Error(
+            error.response?.data?.message ||
+            "Terjadi kesalahan saat mengambil data pembelajaran."
+        );
+    }
+};
+
+const deleteMateri = async (materiId) => {
+    try {
+        const response = await axios.delete(`${apiUrl}/pembelajarans/${materiId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+        // Inisialisasi objek Bank menggunakan konstruktor
+        if (response.data && response.data.message) {
+            return response.data.message
+        } else {
+            throw new Error("No Donation data found.");
+        }
+    } catch (error) {
+        console.error("Failed to fetch Donation info:", error);
+        throw new Error(error.response?.data?.message || "Failed to fetch bank info");
+    }
+}
 
 const pembelajaranService = {
     getPembelajarans,
     getPembelajaranById,
-    getPembelajaranCategoryById
+    getPembelajaranCategoryById,
+    createMateri,
+    deleteMateri,
+    updateMateri,
 };
 
 export default pembelajaranService;

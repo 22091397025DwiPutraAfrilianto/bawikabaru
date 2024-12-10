@@ -4,42 +4,39 @@ import Login from "../pages/login";
 import ForgotPassword from "../pages/forgotpassword";
 import SignUp from "../pages/signup";
 import Dashboard from "../dashboard/dashboard";
-import MateriDashboard from "../dashboard/materipembelajaran";
+import MateriDashboard from "../dashboard/MateriPembelajaranAdmin";
 import TembangJawaDashboard from "../dashboard/tembangjawa";
 import Dongeng from "../pages/dongeng";
 import SingleDongeng from "../pages/singleDongeng";
 import MateriPembelajaran1 from "../pages/materipembelajaran1";
-import MateriPembelajaran2 from "../pages/materipembelajaran2";
-import MateriPembelajaran3 from "../pages/materipembelajaran3";
-import MateriPembelajaran4 from "../pages/materipembelajaran4";
-import MateriPembelajaran5 from "../pages/materipembelajaran5";
-import DetailUpacaraMantenan from "../pages/detailupacaramantenan";
-import DetailSelametan from "../pages/detailslametan";
-import DetailSekaten from "../pages/detailsekaten";
-import DetailRuwetan from "../pages/detailruwatan";
-import DetailPakaianPria from "../pages/detailpakaianpria";
-import DetailPakaianWanitaa from "../pages/detailpakaianwanita";
-import DetailTarianTradisional from "../pages/detailtariantrdisional";
 import DetailKesenian from "../pages/detailkesenian";
 import DetailJawaNgoko from "../pages/detailjawangoko";
 import DetailJawaKrama from "../pages/detailjawakrama";
 import DetailAksaraJawa from "../pages/detailaksarajawa";
-import PremiumPlan from "../pages/premiumpllan";
 import PaymentForm from "../pages/payment";
 import TembangJawa from "../pages/tembangjawa";
 import TembangPlayer from "../pages/detailtembang1";
 import TembangPlayer2 from "../pages/detailtembang2";
 import TembangPlayer3 from "../pages/detailtembang3";
 import TembangPlayer4 from "../pages/detailtembang4";
-import Event from "../pages/event";
 import DaftarEvent from "../pages/daftarEvent";
-import Quiz from "../pages/detailkuis";
 import PaymentProcess from "../pages/paymentprocess";
 import KuisNavbar from "../pages/kuisnavbar";
 import PembelajaranNavbar from "../pages/pembelajaran";
 import Profile from "../pages/profile";
 import DetailPembelajaran from "../pages/detailpembelajaran";
 import DetailTembang from "../pages/detailtembang";
+import MateriPembelajaran from "../dashboard/MateriPembelajaranAdmin";
+import DongengDashboard from "../dashboard/DongengDashboard";
+import ListEvent from "../pages/ListEvent";
+import DetailEvent from "../pages/DetailEvent";
+import EventDashboard from "../dashboard/EventDashboard";
+import EditProfile from "../pages/EditProfile";
+import Quiz4 from "../pages/kuisbahasa";
+import Quiz3 from "../pages/kuismacapat";
+import Quiz2 from "../pages/kuistarian";
+import Quiz1 from "../pages/kuisaksara";
+import PesertaDashboard from "../dashboard/pesertaDashboard";
 
 
 
@@ -51,31 +48,20 @@ const Router = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/edit/profile" element={<EditProfile />} />
         <Route path="/login/forgotpassword" element={<ForgotPassword />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dongengdashboard" element={<DongengDashboard />} />
+        <Route path="/pesertadashboard/:id" element={<PesertaDashboard />} />
         <Route path="/materidashboard" element={<MateriDashboard />} />
         <Route path="/tembangjawadashboard" element={<TembangJawaDashboard />} />
+        <Route path="/eventdashboard" element={<EventDashboard />} />
         <Route path="/dongeng" element={<Dongeng />} />
         <Route path="/dongeng/:id" element={<SingleDongeng />} />
-        <Route path="/materipembelajaran" element={<MateriPembelajaran1 />} />
+        <Route path="/materipembelajaran" element={<MateriPembelajaran />} />
         <Route path="/pembelajaran/category/:id" element={<MateriPembelajaran1 />} />
         <Route path="/pembelajaran/:id" element={<DetailPembelajaran />} />
-        <Route path="/materipembelajaran1/premium" element={<PremiumPlan />} />
-        <Route path="/materipembelajaran2" element={<MateriPembelajaran2 />} />
-        <Route path="/materipembelajaran3" element={<MateriPembelajaran3 />} />
-        <Route path="/materipembelajaran4" element={<MateriPembelajaran4 />} />
-        <Route path="/materipembelajaran5" element={<MateriPembelajaran5 />} />
-        <Route path="/upacaramantenan" element={<DetailUpacaraMantenan />} />
-        <Route path="/slametan" element={<DetailSelametan />} />
-        <Route path="/sekaten" element={<DetailSekaten />} />
-        <Route path="/ruwetan" element={<DetailRuwetan />} />
-        <Route path="/pakaianpria" element={<DetailPakaianPria />} />
-        <Route path="/pakaianwanita" element={<DetailPakaianWanitaa />} />
-        <Route
-          path="/tariantradisional"
-          element={<DetailTarianTradisional />}
-        />
         <Route path="/kesenian" element={<DetailKesenian />} />
         <Route path="/jawangoko" element={<DetailJawaNgoko />} />
         <Route path="/jawakrama" element={<DetailJawaKrama />} />
@@ -88,9 +74,13 @@ const Router = () => {
         <Route path="/tembang/2" element={<TembangPlayer2 />} />
         <Route path="/tembang/3" element={<TembangPlayer3 />} />
         <Route path="/tembang/4" element={<TembangPlayer4 />} />
-        <Route path="/event" element={<Event />} />
-        <Route path="/event/daftar" element={<DaftarEvent />} />
-        <Route path="/kuis1" element={<Quiz />} />
+        <Route path="/event" element={<ListEvent />} />
+        <Route path="/event/:id" element={<DetailEvent />} />
+        <Route path="/event/daftar/:id" element={<DaftarEvent />} />
+        <Route path="/kuis1" element={<Quiz1 />} />
+        <Route path="/kuis2" element={<Quiz2 />} />
+        <Route path="/kuis3" element={<Quiz3 />} />
+        <Route path="/kuis4" element={<Quiz4 />} />
         <Route path="/kuis" element={<KuisNavbar />} />
         <Route path="/pembelajaran" element={<PembelajaranNavbar />} />
       </Routes>

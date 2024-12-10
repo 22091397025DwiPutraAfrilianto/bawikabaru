@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
+const User = require("./userModel");
 
 const Music = sequelize.define(
     "Musics",
@@ -34,7 +35,7 @@ const Music = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Users',  // Merujuk ke tabel Users di database
+                model: User,  // Merujuk ke tabel Users di database
                 key: 'id',
             },
             onUpdate: 'CASCADE',

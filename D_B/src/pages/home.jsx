@@ -119,25 +119,26 @@ const Home = () => {
           <KuisCard
             name={"Kuis Aksara Jawa"}
             src={aksara}
-            to={"#"}
+            to={"/kuis1"}
             lock={true}
           />
           <KuisCard
             name={"Kuis Tarian Daerah"}
             src={tarian}
-            to={"#"}
+            to={"/kuis2"}
             lock={true}
+
           />
           <KuisCard
             name={"Kuis Tembang Macapat"}
             src={tembang_macapat2}
-            to={"#"}
+            to={"/kuis3"}
             lock={true}
           />
           <KuisCard
             name={"Kuis Bahasa Jawa"}
             src={ayoSinau}
-            to={"#"}
+            to={"/kuis4"}
             lock={true}
           />
         </div>

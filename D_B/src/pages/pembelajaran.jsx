@@ -9,7 +9,7 @@ const PembelajaranNavbar = () => {
   return (
     <>
       <Navbar />
-      <section className="bg-[#fee799]">
+      <section className="">
         <div className="container px-10 mx-auto my-16">
           <h3 className="text-4xl font-semibold text-center">Ayo Belajar Sambil Bermain Bersama!</h3>
           <div className="flex flex-col gap-16 mt-8">

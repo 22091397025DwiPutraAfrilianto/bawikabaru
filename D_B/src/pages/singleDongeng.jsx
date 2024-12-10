@@ -69,9 +69,9 @@ const SingleDongeng = () => {
   return (
     <>
       <Navbar />
-      <div className="container px-10 mx-auto my-16">
+      <div className="container px-10 mx-auto my-10">
         {/* Judul Dongeng */}
-        <h1 className="text-5xl text-center mb-8">{dongengData.title}</h1>
+        <h1 className="text-5xl text-center mb-8 font-bold">{dongengData.title}</h1>
 
         {/* Pemutaran Video Menggunakan VideoLink */}
         <div className="mx-16 my-8">
@@ -91,19 +91,6 @@ const SingleDongeng = () => {
         <div className="w-full max-w-full px-0 prose prose-xl text-justify mb-8">
           <p>{dongengData.description}</p>
         </div>
-
-        {/* Tampilkan Thumbnail sebagai Informasi Visual */}
-        {dongengData.thumbnailLink && (
-          <div className="text-center mb-8">
-            <a href={dongengData.thumbnailLink} target="_blank" rel="noopener noreferrer">
-              <img
-                src={getThumbnailUrl(dongengData.thumbnailLink)}
-                alt={dongengData.title}
-                className="max-w-xs mx-auto rounded-lg shadow-md"
-              />
-            </a>
-          </div>
-        )}
 
         <Rekomendasi />
       </div>

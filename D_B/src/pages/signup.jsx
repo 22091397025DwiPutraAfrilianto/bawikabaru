@@ -4,7 +4,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo2 from "../assets/logo.png";
 import charat2 from "../assets/chara.png";
-import { useAuth } from "../context/authContext";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +14,6 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  const { login: contextLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -59,10 +57,9 @@ const SignUp = () => {
         toast.success(result.message || "Pendaftaran berhasil!");
 
         // Login user dengan token dari server jika berhasil
-        contextLogin(result.token, result.user.role, result.user.name);
 
         // Navigasi ke halaman /home
-        setTimeout(() => navigate("/home"), 1000);
+        setTimeout(() => navigate("/"), 1000);
       } else {
         toast.error(result.message || "Terjadi kesalahan saat mendaftar.");
       }
@@ -150,7 +147,7 @@ const SignUp = () => {
           <div className="text-center mt-4">
             <p className="text-sm">
               Sudah punya akun?{" "}
-              <Link to="/" className="text-yellow-500 hover:underline">Login</Link>
+              <Link to="/login" className="text-yellow-500 hover:underline">Login</Link>
             </p>
           </div>
         </div>

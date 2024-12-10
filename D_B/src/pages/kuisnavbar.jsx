@@ -9,7 +9,7 @@ const KuisNavbar = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-[#fee799]">
+      <div className="">
         <div className="container px-10 mx-auto my-16">
           <div className="flex flex-col gap-4 text-center">
             <h3 className="text-5xl font-semibold">Daftar Kuis Menarik</h3>
@@ -27,20 +27,20 @@ const KuisNavbar = () => {
             <KuisCard
               name={"Kuis Tarian Daerah"}
               src={tarian}
-              lock={true}
-              to={"/kuistariandaerah/premium"}
+              lock={false}
+              to={"/kuis2"}
             />
             <KuisCard
               name={"Kuis Tembang Macapat"}
               src={tembang_macapat2}
-              to={"/kuistembangmacapat/premium"}
-              lock={true}
+              to={"/kuis3"}
+              lock={false}
             />
             <KuisCard
               name={"Kuis Bahasa Jawa"}
               src={ayoSinau}
-              to={"/kuisbahasajawa/premium"}
-              lock={true}
+              to={"/kuis4"}
+              lock={false}
             />
           </div>
         </div>

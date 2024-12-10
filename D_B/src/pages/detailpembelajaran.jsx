@@ -28,28 +28,46 @@ const DetailPembelajaran = () => {
     fetchMateri();
   }, [id]);
 
+  const chunkTextIntoParagraphs = (text, sentencesPerParagraph = 5) => {
+    // Gunakan regex untuk memecah teks menjadi kalimat berdasarkan tanda titik
+    const sentences = text?.split(/(?<=[.!?])\s+/) || [];
+    const paragraphs = [];
+
+    for (let i = 0; i < sentences.length; i += sentencesPerParagraph) {
+      paragraphs.push(sentences.slice(i, i + sentencesPerParagraph).join(' '));
+    }
+
+    return paragraphs;
+  };
+
   return (
     <>
       <Navbar />
-      <main className="bg-[#fdfcf0] min-h-screen px-4 py-6">
+      <main className="bg-[#fdfcf0] min-h-screen px-36 py-6">
         {isLoading ? (
           <div className="text-center text-gray-700 mt-12">Loading...</div>
         ) : (
           <>
-            <section className="text-center mt-6">
-              <h1 className="text-3xl font-bold text-gray-800">{materiData?.title}</h1>
-              <div className="mt-4">
+            <section className="text-center ">
+              <h1 className="text-4xl font-bold text-gray-800 font-poppins">{materiData?.title}</h1>
+              <div className="mt-8">
                 <img
-                  src={materiData?.imagePath ? `/image/pembelajaran/${materiData?.imagePath}` : `/image/mantenan.png`}
+                  src={materiData?.imagePath ? `${materiData?.imagePath}` : `/image/mantenan.png`}
                   alt={materiData?.title}
                   className="mx-auto w-full max-w-lg"
                 />
               </div>
             </section>
 
-            <article className="mt-8 mx-auto max-w-4xl text-justify text-gray-700 leading-7">
-              <p>{materiData?.description}</p>
+            <article className="mt-8 mx-auto text-justify text-gray-700 leading-7">
+              {chunkTextIntoParagraphs(materiData?.description).map((paragraph, index) => (
+                <p key={index} className="mb-4">
+                  {paragraph}
+                </p>
+              ))}
             </article>
+
+
 
             {materiData?.pdf_link ? (
               <div className="text-center mt-8">

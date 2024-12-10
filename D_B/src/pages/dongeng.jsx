@@ -77,7 +77,7 @@ const Dongeng = () => {
     <>
       <Navbar />
       <div className="container px-10 mx-auto mt-10">
-        <h3 className="mb-5 text-4xl font-semibold">Dongeng Anak</h3>
+        <h3 className="mb-5 text-4xl font-bold font-poppins text-center">Dongeng Anak</h3>
         <div className="mt-16">
           <Slider {...settings}>
             {dongengData.length > 0 ? (

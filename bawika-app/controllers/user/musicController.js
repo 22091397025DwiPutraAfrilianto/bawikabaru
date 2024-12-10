@@ -59,8 +59,8 @@ const createMusic = async (req, res) => {
             title,
             description,
             pencipta,
-            music_path: audioPath[0].path,
-            image_path: imagePath[0].path,
+            music_path: audioPath[0].filename,
+            image_path: imagePath[0].filename,
             createdBy: userId,
         });
 

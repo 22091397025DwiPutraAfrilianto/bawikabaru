@@ -6,7 +6,7 @@ const fs = require('fs');
 // Tentukan path folder tujuan untuk upload video
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const dir = path.join(__dirname, '../../../D_B/public/image/pembelajaran');
+        const dir = path.join(__dirname, '../../../D_B/public/image/materi');
 
         // Periksa apakah folder sudah ada, jika belum buat folder
         if (!fs.existsSync(dir)) {
@@ -46,13 +46,13 @@ const upload = multer({
 const createPebelajaran = async (req, res) => {
     try {
         const userId = req.userId; // ID pengguna yang sedang login
-        const { title, description, pdf_link, image_path, category_id } = req.body;
+        const { title, description, pdf_link, category_id } = req.body;
 
         // Validasi input
         if (!category_id) {
             return res.status(400).json({ message: 'Category ID is required' });
         }
-
+        const image_path = req.file ? `/image/materi/${req.file.filename}` : null;
         // Buat entri pembelajaran baru
         const newPebelajaran = await Pembelajaran.create({
             title,
@@ -74,12 +74,12 @@ const createPebelajaran = async (req, res) => {
 const getPebelajarans = async (req, res) => {
     try {
         // Ambil semua pembelajaran
-        const pebelajarans = await Pembelajaran.findAll({
+        const pembelajarans = await Pembelajaran.findAll({
             attributes: ['id', 'title', 'description', 'image_path', 'category_id', 'createdBy', 'createdAt', 'updatedAt'],
             order: [['createdAt', 'DESC']],
         });
 
-        res.status(200).json({ pebelajarans });
+        res.status(200).json({ pembelajarans });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Failed to retrieve pebelajarans', error: error.message });
@@ -134,7 +134,7 @@ const updatePebelajaran = async (req, res) => {
     try {
         const userId = req.userId; // ID pengguna yang sedang login
         const pebelajaranId = req.params.id; // ID pembelajaran dari URL params
-        const { title, description, pdf_link, image_path, category_id } = req.body;
+        const { title, description, pdf_link, category_id } = req.body;
 
         // Cari pembelajaran berdasarkan ID dan validasi createdBy
         const pembelajaran = await Pembelajaran.findOne({ where: { id: pebelajaranId, createdBy: userId } });
@@ -143,13 +143,15 @@ const updatePebelajaran = async (req, res) => {
             return res.status(404).json({ message: 'Pebelajaran not found or you are not authorized to update this pembelajaran' });
         }
 
+
         // Update hanya kolom yang diberikan
         if (title) pembelajaran.title = title;
         if (description) pembelajaran.description = description;
-        if (image_path) pembelajaran.image_path = image_path;
         if (pdf_link) pembelajaran.pdf_link = pdf_link;
         if (category_id) pembelajaran.category_id = category_id;
-
+        if (req.file) {
+            pembelajaran.image_path = `/image/materi/${req.file.filename}`;
+        }
         // Simpan perubahan
         await pembelajaran.save();
 
@@ -163,19 +165,18 @@ const updatePebelajaran = async (req, res) => {
 // **Delete Pebelajaran**
 const deletePebelajaran = async (req, res) => {
     try {
-        const userId = req.userId; // ID pengguna yang sedang login
-        const pebelajaranId = req.params.id; // ID pembelajaran dari URL params
+        const userId = req.userId;
+        const pembelajaranId = req.params.id;
 
         // Cari pembelajaran berdasarkan ID dan validasi createdBy
-        const pembelajaran = await Pembelajaran.findOne({ where: { id: pebelajaranId, createdBy: userId } });
+        const pembelajaran = await Pembelajaran.findOne({ where: { id: pembelajaranId, createdBy: userId } });
 
         if (!pembelajaran) {
             return res.status(404).json({ message: 'Pebelajaran not found or you are not authorized to delete this pembelajaran' });
         }
 
-        // Soft delete dengan mengisi kolom deletedAt
-        pembelajaran.deletedAt = new Date();
-        await pembelajaran.save();
+        // Gunakan destroy() untuk soft delete
+        await pembelajaran.destroy();
 
         res.status(200).json({ message: 'Pebelajaran deleted successfully' });
     } catch (error) {
@@ -183,5 +184,6 @@ const deletePebelajaran = async (req, res) => {
         res.status(500).json({ message: 'Failed to delete pembelajaran', error: error.message });
     }
 };
+
 
 module.exports = { upload, createPebelajaran, getPebelajarans, getPebelajaranById, updatePebelajaran, deletePebelajaran, getPembelajaranByCategoryId };

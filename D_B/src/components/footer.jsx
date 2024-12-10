@@ -10,41 +10,46 @@ import { FaLinkedin } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-      <footer className="px-10 my-16">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-4 gap-8 text-neutral-600">
+      <footer className="px-6 md:px-10 my-16">
+        <div className="container mx-auto flex justify-center">
+          <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-neutral-600">
+            {/* Logo and Description */}
             <div>
-              <img className="-mb-4" src={logo} />
-              <p className="text-xl text-balance text-neutral-600">
-                Bawika. Together we learn Javanese Language and Culture!
-                Let&apos;s explore colorful stories, songs and traditions.
+              <img className="-mb-4" src={logo} alt="Bawika Logo" />
+              <p className="text-sm md:text-base text-neutral-600 mt-4">
+                Bawika. Together we learn Javanese Language and Culture! Let&apos;s
+                explore colorful stories, songs, and traditions.
               </p>
               <ul className="flex flex-row gap-4 mt-4 text-neutral-600">
                 <li>
                   <Link to={"#"}>
-                    <FaSquareFacebook className="size-8" />
+                    <FaSquareFacebook className="w-6 h-6 md:w-8 md:h-8" />
                   </Link>
                 </li>
                 <li>
                   <Link to={"#"}>
-                    <FaSquareTwitter className="size-8" />
+                    <FaSquareTwitter className="w-6 h-6 md:w-8 md:h-8" />
                   </Link>
                 </li>
                 <li>
                   <Link to={"#"}>
-                    <FaSquareInstagram className="size-8" />
+                    <FaSquareInstagram className="w-6 h-6 md:w-8 md:h-8" />
                   </Link>
                 </li>
                 <li>
                   <Link to={"#"}>
-                    <FaLinkedin className="size-8" />
+                    <FaLinkedin className="w-6 h-6 md:w-8 md:h-8" />
                   </Link>
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col gap-6 mt-10">
-              <h3 className="text-3xl font-semibold">Deaprtments</h3>
-              <ul className="flex flex-col gap-4 text-lg">
+
+            {/* Departments Section */}
+            <div className="flex flex-col justify-center items-center text-center lg:text-left lg:justify-start lg:items-start gap-4 sm:gap-6">
+              <h3 className="text-lg md:text-xl lg:text-3xl font-semibold">
+                Departments
+              </h3>
+              <ul className="flex flex-col gap-2 sm:gap-4 text-sm md:text-lg">
                 <li>
                   <Link to={"#"}>Family Medicine</Link>
                 </li>
@@ -62,9 +67,13 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col gap-6 mt-10">
-              <h3 className="text-3xl font-semibold">Quick Links</h3>
-              <ul className="flex flex-col gap-4 text-lg">
+
+            {/* Quick Links Section */}
+            <div className="flex flex-col gap-4 sm:gap-6">
+              <h3 className="text-lg md:text-xl lg:text-3xl font-semibold">
+                Quick Links
+              </h3>
+              <ul className="flex flex-col gap-2 sm:gap-4 text-sm md:text-lg">
                 <li>
                   <Link to={"#"}>Our Doctors</Link>
                 </li>
@@ -82,14 +91,18 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col gap-6 mt-10">
-              <h3 className="text-3xl font-semibold">Blog Post</h3>
-              <ul className="flex flex-col gap-4 text-lg">
+
+            {/* Blog Post Section */}
+            <div className="flex flex-col gap-4 sm:gap-6">
+              <h3 className="text-lg md:text-xl lg:text-3xl font-semibold">
+                Blog Post
+              </h3>
+              <ul className="flex flex-col gap-2 sm:gap-4 text-sm md:text-lg">
                 <li>
                   <Link to={"#"}>
                     <p className="text-neutral-900">22.05.2019</p>
                     <p>
-                      Excepteur sint occaecat cupidatat non proident,sunt in
+                      Excepteur sint occaecat cupidatat non proident, sunt in
                       culpa.
                     </p>
                   </Link>
@@ -98,7 +111,7 @@ const Footer = () => {
                   <Link to={"#"}>
                     <p className="text-neutral-900">22.05.2019</p>
                     <p>
-                      Excepteur sint occaecat cupidatat non proident,sunt in
+                      Excepteur sint occaecat cupidatat non proident, sunt in
                       culpa.
                     </p>
                   </Link>

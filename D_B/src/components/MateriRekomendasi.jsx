@@ -30,25 +30,25 @@ const MateriRekomendasi = ({ categoryId }) => {
 
     return (
         <section className="mt-12 text-center">
-            <h2 className="text-2xl font-bold text-gray-800">Rekomendasi</h2>
+            <h2 className="text-3xl font-bold text-gray-800">Rekomendasi</h2>
             {isLoading ? (
                 <div className="text-gray-500 mt-4">Memuat rekomendasi...</div>
             ) : (
-                <div className="mt-6 flex flex-wrap justify-center gap-6">
+                <div className="grid grid-cols-3 mt-8 gap-8">
                     {materiData.length > 0 ? (
                         materiData.map((item) => (
                             <Link
                                 onClick={handleToTop}
                                 to={`/pembelajaran/${item.id}`}
                                 key={item.id}
-                                className="card bg-white shadow-lg rounded-lg overflow-hidden w-48 hover:shadow-2xl transition-shadow duration-200"
+                                className=" relative group"
                             >
                                 <img
-                                    src={item.imagePath ? `/image/pembelajaran/${item.imagePath}` : ''}
+                                    src={item.imagePath ? `${item.imagePath}` : ''}
                                     alt={item.title}
-                                    className="w-full h-32 object-cover"
+                                    className="object-cover w-full rounded-xl h-72 transition-transform transform group-hover:scale-105"
                                 />
-                                <p className="mt-2 text-gray-700 font-bold text-sm">{item.title}</p>
+                                <p className="mt-4 text-gray-700 font-bold">{item.title}</p>
                             </Link>
                         ))
                     ) : (
